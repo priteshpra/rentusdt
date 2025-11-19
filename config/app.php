@@ -52,9 +52,9 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://localhost/rentusdt-admin/public'),
+    'url' => env('APP_URL', 'http://localhost/rentusdt/public'),
 
-    'asset_url' => env('ASSET_URL', 'http://localhost/rentusdt-admin/public'),
+    'asset_url' => env('ASSET_URL', 'http://localhost/rentusdt/public'),
 
     /*
     |--------------------------------------------------------------------------
