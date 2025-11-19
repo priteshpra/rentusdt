@@ -15,7 +15,7 @@
                     <div class="col-auto">
                         <div class="dropdown">
                             <a href="#" class="btn bt btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="icofont-calendar fs-5 me-1"></i> This Month <i class="las la-angle-down ms-1"></i>
+                                <i class="icofont-calendar fs-5 me-1"></i> <span class="selected-filter-text">This Month</span> <i class="las la-angle-down ms-1"></i>
                             </a>
                             <div class="dropdown-menu dropdown-menu-end">
                                 <a class="dropdown-item" href="today">Today</a>
@@ -104,6 +104,9 @@
             let filter = $(this).attr('href').replace('#', '');
             let perPage = 15;
 
+            let selectedText = $(this).text().trim();
+            // Update dropdown button label
+            $('.selected-filter-text').text(selectedText);
             $.ajax({
                 url: "{{ route('transactions.filter') }}",
                 type: 'GET',
