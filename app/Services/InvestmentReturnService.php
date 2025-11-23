@@ -23,19 +23,22 @@ class InvestmentReturnService
     public function createDailyReturnForInvestment(Deposite $inv, string $forDate)
     {
         // if already exists (unique constraint) return it
-        $existing = ReturnHistory::where('investment_id', $inv->id)->where('for_date', $forDate)->first();
-        if ($existing) {
-            return $existing;
-        }
-
-        $userss = $inv;
+        $existing = Deposite::where('status_1', 0)->whereDate('created_at', $forDate)->get();
+        $userss = $existing;
         $datentime = date("Y-m-d") . " " . date("h:i a");
         foreach ($userss as $va) {
+
+            Log::info('Update USDT Amount specific user', []);
+            $totalUsdt = Deposite::where('user_id', $va->user_id)->sum('amount1');
+            $updateUSDT = User::where('id', $va->user_id)->first();
+            $updateUSDT->total_usdt = $totalUsdt;
+            $updateUSDT->save();
+            Log::info('Update USDT Amount specific user END', []);
 
             $postdata = array();
             $txn_id = $va->txn_id;
             $url = "https://api.nowpayments.io/v1/payment/" . $txn_id;
-            $apiKey = "ZJW3TMT-TTVMXR5-GJZJ3N1-46A5C54";
+            $apiKey = env('NOWPAYMENTS_KEY');
 
             $curl = curl_init($url);
             curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "GET");
@@ -48,11 +51,12 @@ class InvestmentReturnService
             $err = curl_error($curl);
             curl_close($curl);
             $resultss = json_decode($response);
+            // Log::info('Data Here', [$resultss]);
 
             $status_text = $resultss->payment_status;
 
-            $deposite   = deposite::where('txn_id', $txn_id)->first();
-            if (count($deposite) > 0 && $deposite->status_1 != 1) {
+            $deposite   = Deposite::where('txn_id', $txn_id)->first();
+            if ($deposite && $deposite->status_1 != 1) {
                 if ($status_text == 'finished') {
                     $deposite->status_1     = 1;
                     $deposite->amount1     = $resultss->outcome_amount;
@@ -67,7 +71,7 @@ class InvestmentReturnService
                 if ($deposite->status_1 == '1') {
                     if ($status_text == 'finished') {
                         $user = User::where('user_id', $deposite->user_id)->first();
-                        if ($user != '') {
+                        if ($user) {
 
                             $coin = "USDTTRC20";
                             $user->user_fund_wallet   = $user->user_fund_wallet + $deposite->amount;
@@ -94,7 +98,7 @@ class InvestmentReturnService
                                 'amount' => $deposite->amount,
                             ]);
 
-                            $monthly = $this->calculateMonthlyAmount($inv); // as float
+                            $monthly = $this->calculateMonthlyAmount($va); // as float
                             $daily = $this->calculateDailyAmount($monthly);
 
                             return DB::transaction(function () use ($inv, $forDate, $monthly, $daily) {
@@ -104,9 +108,8 @@ class InvestmentReturnService
                                     'principal_snapshot' => $inv->principal,
                                     'monthly_amount'   => $monthly,
                                     'daily_amount'     => $daily,
-                                    'for_date'         => $forDate,
-                                    'status'           => 'pending',
-                                    'processed_at'     => null,
+                                    'return_date'         => $forDate,
+                                    'status'           => 'Added to Wallet',
                                 ]);
                             });
                         } else {
@@ -123,7 +126,7 @@ class InvestmentReturnService
                     ]);
                 }
             } else {
-                echo "invalid deposite transaction / deposite process already done";
+                // echo "invalid deposite transaction / deposite process already done";
                 Log::info('invalid deposite transaction / deposite process already done', [
                     'user_id' => $user->user_id
                 ]);
@@ -135,7 +138,14 @@ class InvestmentReturnService
     public function calculateMonthlyAmount(Deposite $inv): float
     {
         // principal * (monthly_rate_percent / 100)
-        return (float) bcmul((string)$inv->amount2, bcdiv((string)$inv->monthly_rate_percent, '100', 8), 8);
+
+        $user_id = $inv->user_id;
+        $userData = User::where('id', $user_id)->first();
+        $monthly_rate_percent = $userData->assign_rate;
+        Log::info('calculateMonthlyAmount', [
+            'monthly_rate_percent' => $monthly_rate_percent
+        ]);
+        return (float) bcmul((string)$inv->amount2, bcdiv((string)$monthly_rate_percent, '100', 8), 8);
     }
 
     // Calculate daily share from monthly

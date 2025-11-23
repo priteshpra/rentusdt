@@ -401,7 +401,7 @@
                                 <tr>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <img src="admin/assets/images/users/user-7.jpg" height="40"
+                                            <img src="{{ !empty($user) && !empty($user->avatar) ? asset('storage/'.$user->avatar) : asset('admin/assets/images/users/avatar-1.jpg') }}" height="40"
                                                 class="me-3 rounded" alt="">
                                             <div>
                                                 <h6 class="mb-0">{{ $user->name }}</h6>

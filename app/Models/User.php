@@ -24,7 +24,10 @@ class User extends Authenticatable
         'contact',
         'is_deleted',
         'assign_rate',
-        'profile',
+        'avatar',
+        'wallet_address',
+        'country',
+        'refer_code'
     ];
 
     /**

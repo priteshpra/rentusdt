@@ -21,7 +21,8 @@ class DashboardController extends Controller
         $transactions = Deposite::with('get_user')->where('user_id', $user['id'])->get();
         return view('rentus.index', compact(
             'totalUSDT',
-            'transactions'
+            'transactions',
+            'user',
         ));
     }
 }

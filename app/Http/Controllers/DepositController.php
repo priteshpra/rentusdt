@@ -123,7 +123,7 @@ class DepositController extends Controller
                 'remaining_seconds' => $remainingSeconds,
                 'redirect_url' => $redirUrl,
             ];
-
+            return view('rentus.thank-you', []);
             return response()->json(['success' => true, 'data' => $data_query, 'message' => 'this is your URL and data'], 200);
         } catch (Exception $e) {
             Log::error('NowPayments request failed', ['exception' => $e->getMessage()]);

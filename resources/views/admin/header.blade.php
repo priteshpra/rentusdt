@@ -91,7 +91,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('return') ? 'active' : '' }}" href="{{ route('admin/return') }}">
+                    <a class="nav-link {{ request()->routeIs('admin.return') ? 'active' : '' }}" href="{{ route('admin.return') }}">
                         <i class="iconoir-plug-type-l menu-icon"></i>
                         <span>Return History</span>
                     </a>
@@ -105,14 +105,14 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('return') ? 'active' : '' }}" href="{{ route('admin.users.index') }}">
+                    <a class="nav-link {{ request()->routeIs('admin.users.*') ? 'active' : '' }}" href="{{ route('admin.users.index') }}">
                         <i class="iconoir-credit-cards menu-icon"></i>
                         <span>Manage Users</span>
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('profile') ? 'active' : '' }}" href="{{ route('profile') }}">
+                    <a class="nav-link {{ request()->routeIs('admin.profile.*') ? 'active' : '' }}" href="{{ route('admin.profile') }}">
                         <i class="iconoir-user menu-icon"></i>
                         <span>Edit Profile</span>
                     </a>

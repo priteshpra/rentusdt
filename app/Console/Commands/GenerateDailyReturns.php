@@ -40,6 +40,7 @@ class GenerateDailyReturns extends Command
         $created = 0;
         foreach ($investments as $inv) {
             try {
+                // $this->info("Here we go {$inv}.");
                 $this->service->createDailyReturnForInvestment($inv, $forDate);
                 $created++;
             } catch (\Exception $e) {

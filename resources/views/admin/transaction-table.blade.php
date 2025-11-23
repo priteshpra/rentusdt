@@ -2,7 +2,7 @@
 <tr>
     <td>
         <div class="d-flex align-items-center">
-            <img src="{{ asset('rentus/assets/images/users/avatar-1.jpg') }}" height="40" class="me-2 rounded" alt="">
+            <img src="{{ !empty($tran->get_user) && !empty($tran->get_user->avatar) ? asset('storage/'.$tran->get_user->avatar) : asset('admin/assets/images/users/avatar-1.jpg') }}" height="40" class="me-2 rounded" alt="">
             <div class="flex-grow-1">
                 <h6 class="m-0">{{ $tran->get_user->name }}</h6>
                 <p class="fs-12 text-muted mb-0">USA</p>

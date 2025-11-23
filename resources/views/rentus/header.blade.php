@@ -105,7 +105,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('profile') ? 'active' : '' }}" href="{{ route('profile') }}">
+                    <a class="nav-link {{ request()->routeIs('profile.*') ? 'active' : '' }}" href="{{ route('profile') }}">
                         <i class="iconoir-user menu-icon"></i>
                         <span>Edit Profile</span>
                     </a>

@@ -8,15 +8,15 @@
     <title>Rent USDT</title>
 
     <!-- Style CSS -->
-    <link rel="stylesheet" href="./log/app/dist/app.css" />
-    <link rel="stylesheet" href="./log/app/dist/magnific-popup.css" />
+    <link rel="stylesheet" href="./auth/app/dist/app.css" />
+    <link rel="stylesheet" href="./auth/app/dist/magnific-popup.css" />
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
 
     <!-- End Style CSS -->
 
     <link rel="shortcut icon" href="assets/images/logo/logo.png" />
     <link rel="apple-touch-icon-precomposed" href="assets/images/logo/logo.png" />
-    <link rel="stylesheet" href="./log/assets/style.css">
+    <link rel="stylesheet" href="./auth/assets/style.css">
 </head>
 
 <body class="body header-fixed home-2">
@@ -29,13 +29,13 @@
                         <div class="header__left">
                             <div class="logo">
                                 <a class="light" href="index.php">
-                                    <img id="site-logo" src="./log/assets/images/logo/logo.png" alt="" width="118"
-                                        height="32" data-retina="./log/assets/images/logo/logo.png" data-width="118"
+                                    <img id="site-logo" src="./auth/assets/images/logo/logo.png" alt="" width="118"
+                                        height="32" data-retina="./auth/assets/images/logo/logo.png" data-width="118"
                                         data-height="32" />
                                 </a>
                                 <a class="dark" href="index.php">
-                                    <img src="./log/assets/images/logo/logo.png" alt="" width="118" height="32"
-                                        data-retina="./log/assets/images/logo/logo.png" data-width="118"
+                                    <img src="./auth/assets/images/logo/logo.png" alt="" width="118" height="32"
+                                        data-retina="./auth/assets/images/logo/logo.png" data-width="118"
                                         data-height="32" />
                                 </a>
                             </div>
@@ -98,35 +98,35 @@
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton3">
                                     <a href="javascript:void(0);" class="dropdown-item notify-item language"
                                         data-lang="en">
-                                        <img src="./log/assets/images/flags/us.jpg" alt="user-image" class="me-1"
+                                        <img src="./auth/assets/images/flags/us.jpg" alt="user-image" class="me-1"
                                             height="12" />
                                         <span class="align-middle">English</span>
                                     </a>
 
                                     <a href="javascript:void(0);" class="dropdown-item notify-item language"
                                         data-lang="sp">
-                                        <img src="./log/assets/images/flags/spain.jpg" alt="user-image" class="me-1"
+                                        <img src="./auth/assets/images/flags/spain.jpg" alt="user-image" class="me-1"
                                             height="12" />
                                         <span class="align-middle">Spanish</span>
                                     </a>
 
                                     <a href="javascript:void(0);" class="dropdown-item notify-item language"
                                         data-lang="gr">
-                                        <img src="./log/assets/images/flags/germany.jpg" alt="user-image" class="me-1"
+                                        <img src="./auth/assets/images/flags/germany.jpg" alt="user-image" class="me-1"
                                             height="12" />
                                         <span class="align-middle">German</span>
                                     </a>
 
                                     <a href="javascript:void(0);" class="dropdown-item notify-item language"
                                         data-lang="it">
-                                        <img src="./log/assets/images/flags/italy.jpg" alt="user-image" class="me-1"
+                                        <img src="./auth/assets/images/flags/italy.jpg" alt="user-image" class="me-1"
                                             height="12" />
                                         <span class="align-middle">Italian</span>
                                     </a>
 
                                     <a href="javascript:void(0);" class="dropdown-item notify-item language"
                                         data-lang="ru">
-                                        <img src="./log/assets/images/flags/russia.jpg" alt="user-image" class="me-1"
+                                        <img src="./auth/assets/images/flags/russia.jpg" alt="user-image" class="me-1"
                                             height="12" />
                                         <span class="align-middle">Russian</span>
                                     </a>
@@ -273,7 +273,7 @@
                             <div class="dropdown user">
                                 <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton5"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <img src="./log/assets/images/avt/avt-01.jpg" alt="" />
+                                    <img src="./auth/assets/images/avt/avt-01.jpg" alt="" />
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton5">
                                     <a class="dropdown-item" href="#"><i
@@ -424,8 +424,8 @@
                     <div class="col-xl-4 col-md-6">
                         <div class="info">
                             <a class="light" href="index.html">
-                                <img id="site-logo" src="./log/assets/images/logo/logo.png" alt="" width="118"
-                                    height="32" data-retina="./log/assets/images/logo/logo.png" data-width="118"
+                                <img id="site-logo" src="./auth/assets/images/logo/logo.png" alt="" width="118"
+                                    height="32" data-retina="./auth/assets/images/logo/logo.png" data-width="118"
                                     data-height="32" />
                             </a>
                             <ul class="list">
@@ -499,19 +499,19 @@
         </div>
     </footer>
 
-    <script src="./log/app/js/aos.js"></script>
-    <script src="./log/app/js/jquery.min.js"></script>
-    <script src="./log/app/js/jquery.easing.js"></script>
-    <script src="./log/app/js/popper.min.js"></script>
-    <script src="./log/app/js/bootstrap.min.js"></script>
-    <script src="./log/app/js/app.js"></script>
-    <script src="./log/app/js/jquery.peity.min.js"></script>
-    <script src="./log/app/js/Chart.bundle.min.js"></script>
-    <script src="./log/app/js/apexcharts.js"></script>
-    <script src="./log/app/js/switchmode.js"></script>
-    <script src="./log/app/js/jquery.magnific-popup.min.js"></script>
+    <script src="./auth/app/js/aos.js"></script>
+    <script src="./auth/app/js/jquery.min.js"></script>
+    <script src="./auth/app/js/jquery.easing.js"></script>
+    <script src="./auth/app/js/popper.min.js"></script>
+    <script src="./auth/app/js/bootstrap.min.js"></script>
+    <script src="./auth/app/js/app.js"></script>
+    <script src="./auth/app/js/jquery.peity.min.js"></script>
+    <script src="./auth/app/js/Chart.bundle.min.js"></script>
+    <script src="./auth/app/js/apexcharts.js"></script>
+    <script src="./auth/app/js/switchmode.js"></script>
+    <script src="./auth/app/js/jquery.magnific-popup.min.js"></script>
 
-    <script src="./log/app/js/chart.js"></script>
+    <script src="./auth/app/js/chart.js"></script>
 
     <!-- Swiper JS -->
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
@@ -519,34 +519,34 @@
     <!-- Initialize Swiper -->
     <script>
         var swiper = new Swiper(".mySwiper", {
-      spaceBetween: 10,
-      slidesPerView: 3,
-      freeMode: true,
-      watchSlidesProgress: true,
-    });
-    var swiper2 = new Swiper(".mySwiper2", {
-      spaceBetween: 10,
+            spaceBetween: 10,
+            slidesPerView: 3,
+            freeMode: true,
+            watchSlidesProgress: true,
+        });
+        var swiper2 = new Swiper(".mySwiper2", {
+            spaceBetween: 10,
 
-      thumbs: {
-        swiper: swiper,
-      },
-    });
+            thumbs: {
+                swiper: swiper,
+            },
+        });
 
-    var swiper3 = new Swiper(".swiper-partner", {
-      breakpoints: {
-        0: {
-          slidesPerView: 2,
-          spaceBetween: 30,
-        },
-        768: {
-          slidesPerView: 4,
-          spaceBetween: 30,
-        },
-        1024: {
-          slidesPerView: 4,
-          spaceBetween: 60,
-        },
-      },
-      slidesPerView: 4,
-    });
+        var swiper3 = new Swiper(".swiper-partner", {
+            breakpoints: {
+                0: {
+                    slidesPerView: 2,
+                    spaceBetween: 30,
+                },
+                768: {
+                    slidesPerView: 4,
+                    spaceBetween: 30,
+                },
+                1024: {
+                    slidesPerView: 4,
+                    spaceBetween: 60,
+                },
+            },
+            slidesPerView: 4,
+        });
     </script>

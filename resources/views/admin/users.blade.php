@@ -65,7 +65,7 @@
                             @foreach($users as $user)
                             <tr class="text-center">
                                 <td>
-                                    <img src="admin/assets/images/users/avatar-1.jpg" height="40" class="rounded-circle" alt="">
+                                    <img src="{{ $user->avatar ? asset('storage/'.$user->avatar) : asset('admin/assets/images/users/avatar-1.jpg') }}" height="40" class="rounded-circle" alt="">
                                 </td>
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>

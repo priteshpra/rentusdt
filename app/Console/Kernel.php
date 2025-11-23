@@ -17,7 +17,8 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
         // Run daily at 00:05 server time (give a few minutes after midnight)
-        $schedule->command('returns:generate')->dailyAt('00:05')->timezone('Asia/Kolkata');
+        // $schedule->command('returns:generate')->dailyAt('00:05')->timezone('Asia/Kolkata');
+        $schedule->command('returns:generate')->everyMinute();
     }
 
     /**
