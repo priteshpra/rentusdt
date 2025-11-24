@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\admin\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DepositController;
@@ -13,6 +14,7 @@ use App\Http\Controllers\Admin\ReturnHistoryController;
 use App\Http\Controllers\ReturnHistoryController as UserReturnHistoryController;
 use App\Http\Controllers\TransactionController as UserTransactionController;
 use App\Http\Controllers\WalletController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,9 +32,9 @@ Route::get('/', function () {
 });
 
 /**
- * 
+ *
  * Users Route Start
- * 
+ *
  */
 
 Route::get('/dashboard', [UserDashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
@@ -69,42 +71,63 @@ Route::post('/webhook/nowpayments', [DepositController::class, 'nowPaymentsWebho
 Route::post('/withdraw/request', [WalletController::class, 'withdrawRequest'])
     ->name('withdraw.request')
     ->middleware('auth');
-
+/**
+ *
+ * Users Route End
+ *
+ */
 
 
 /**
- * 
+ *
  * Admin Panel Route Start
- * 
+ *
  */
-Route::get('/admin-dashboard', [DashboardController::class, 'index'])
-    ->name('admin-dashboard');
 
-Route::get('/admin/payment', [TransactionController::class, 'index'])
-    ->name('admin/payment');
-Route::get('/admin/transactions/filter', [TransactionController::class, 'filterTransactions'])
-    ->name('admin.transactions.filter');
-
-Route::get('/admin/return', [ReturnHistoryController::class, 'index'])->name('admin.return');
-Route::get('/admin/return/filter', [ReturnHistoryController::class, 'filterTransactions'])
-    ->name('admin.return.filter');
-
-Route::get('/admin/withdraw', function () {
-    return view('admin.withdraw');
-})->name('admin/withdraw');
+Route::get('/admin/login', function () {
+    return redirect()->route('admin.login');
+})->name('admin.dashboard');
 
 
-Route::resource('users', UserController::class)->names('admin.users');
-Route::post('/admin/users/{id}/assign-rate', [UserController::class, 'assignRate'])
-    ->name('admin.users.assignRate');
+Route::get('/admin/login', [AdminAuthController::class, 'showLoginForm'])->name('admin.login');
+Route::post('/admin/login', [AdminAuthController::class, 'login'])->name('admin.login.submit');
+Route::post('/admin/logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
 
-Route::middleware('auth')->group(function () {
-    Route::get('/admin/profile', [ProfileController::class, 'show'])->name('admin.profile');
-    Route::get('/admin/profile/edit', [ProfileController::class, 'edit'])->name('admin.profile.edit');
-    Route::put('/admin/profile', [ProfileController::class, 'update'])->name('admin.profile.update');
-    Route::post('/admin/profile/update-password', [ProfileController::class, 'admin.updatePassword'])
-        ->name('admin.profile.password.update');
-});
+Route::prefix('admin')->middleware('adminauth')->group(
+    function () {
+        Route::get('/dashboard', [DashboardController::class, 'index'])
+            ->name('admin.dashboard');
 
+        Route::get('/payment', [TransactionController::class, 'index'])
+            ->name('admin/payment');
+        Route::get('/transactions/filter', [TransactionController::class, 'filterTransactions'])
+            ->name('admin.transactions.filter');
+
+        Route::get('/return', [ReturnHistoryController::class, 'index'])->name('admin.return');
+        Route::get('/return/filter', [ReturnHistoryController::class, 'filterTransactions'])
+            ->name('admin.return.filter');
+
+        Route::get('/withdraw', function () {
+            return view('admin.withdraw');
+        })->name('admin/withdraw');
+
+
+        Route::resource('users', UserController::class)->names('admin.users');
+        Route::post('/users/{id}/assign-rate', [UserController::class, 'assignRate'])
+            ->name('admin.users.assignRate');
+
+        Route::get('/profile', [ProfileController::class, 'show'])->name('admin.profile.show');
+        Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('admin.profile.edit');
+        Route::put('/profile', [ProfileController::class, 'update'])->name('admin.profile.update');
+        Route::post('/profile/update-password', [ProfileController::class, 'admin.updatePassword'])
+            ->name('admin.profile.password.update');
+    }
+);
+
+/**
+ *
+ * Admin Panel Route End
+ *
+ */
 
 require __DIR__ . '/auth.php';

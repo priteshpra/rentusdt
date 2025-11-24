@@ -19,7 +19,7 @@ class ReturnHistoryController extends Controller
         // today's registered users
         $user = auth()->user();
         $perPage = (int) $request->input('per_page', 15);
-        $returnHist = ReturnHistory::with('get_user')->where('user_id', $user['id'])->paginate($perPage);
+        $returnHist = ReturnHistory::with('get_user')->paginate($perPage);
         // dd($returnHist);
         return view('admin.return', compact(
             'returnHist',
@@ -32,8 +32,8 @@ class ReturnHistoryController extends Controller
         $filter = $request->input('filter'); // today, last_week, last_month, this_year
         $perPage = (int) $request->input('per_page', 15);
 
-        $query = ReturnHistory::with('get_user')
-            ->where('user_id', $user['id']);
+        $query = ReturnHistory::with('get_user');
+        // ->where('user_id', $user['id']);
 
         switch ($filter) {
             case 'today':

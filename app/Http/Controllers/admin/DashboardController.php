@@ -17,7 +17,7 @@ class DashboardController extends Controller
         // today's registered users
         $todayUsers = User::whereDate('created_at', Carbon::today())->get();
         $activeUsers      = User::where('status', 1)->count();
-        $totalUSDT        = ''; //User::sum('total_usdt'); 
+        $totalUSDT        = ''; //User::sum('total_usdt');
         return view('admin.dashboard', compact(
             'todayUsers',
             'totalUSDT',

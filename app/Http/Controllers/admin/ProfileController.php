@@ -8,7 +8,8 @@ use App\Services\UserService; // optional
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
-use Auth;
+// use Auth;
+use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
@@ -22,21 +23,21 @@ class ProfileController extends Controller
     // Show profile (read-only)
     public function show()
     {
-        $user = Auth::user();
+        $user = Auth::guard('admin')->user(); //Auth::user();
         return view('admin.profile', compact('user'));
     }
 
     // Edit profile (form)
     public function edit()
     {
-        $user = Auth::user();
+        $user = Auth::guard('admin')->user();
         return view('admin.profile.edit', compact('user'));
     }
 
     // Update profile
     public function update(UpdateProfileRequest $request)
     {
-        $user = Auth::user();
+        $user = Auth::guard('admin')->user();
 
         $data = $request->only(['name', 'email', 'contact', 'wallet_address']);
 
@@ -73,7 +74,7 @@ class ProfileController extends Controller
             'confirm_password' => 'required|same:new_password',
         ]);
 
-        $user = auth()->user();
+        $user = Auth::guard('admin')->user();
 
         // current password check
         if (!Hash::check($request->current_password, $user->password)) {

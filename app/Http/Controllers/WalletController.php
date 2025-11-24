@@ -76,7 +76,7 @@ class WalletController extends Controller
         }
 
         // check previous pending withdraw for same wallet
-        $pendingCount = WalletRequest::where('user_id', $user->user_id)
+        $pendingCount = WalletRequest::where('user_id', $user->id)
             ->where('wallet_type', $request->input('wallet'))
             ->where('wallet_status', 'P')
             ->count();
@@ -112,7 +112,7 @@ class WalletController extends Controller
             $adminCommission = round($amount * $adminPercent / 100, 8);
             $payableAmount = round($amount - $adminCommission, 8);
             $currency = 'USDT';
-            $address = $user->trx_address;
+            $address = $user->wallet_address;
 
             // If you have a WithdrawalService, use it (recommended)
             // if ($this->withdrawalService) {

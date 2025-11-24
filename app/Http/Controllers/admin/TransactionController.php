@@ -30,8 +30,8 @@ class TransactionController extends Controller
         $filter = $request->input('filter'); // today, last_week, last_month, this_year
         $perPage = (int) $request->input('per_page', 15);
 
-        $query = Deposite::with('get_user')
-            ->where('user_id', $user['id']);
+        $query = Deposite::with('get_user');
+        // ->where('user_id', $user['id']);
 
         switch ($filter) {
             case 'today':
