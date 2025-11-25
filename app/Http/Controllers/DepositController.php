@@ -124,7 +124,7 @@ class DepositController extends Controller
                 'redirect_url' => $redirUrl,
             ];
             return view('rentus.thank-you', []);
-            return response()->json(['success' => true, 'data' => $data_query, 'message' => 'this is your URL and data'], 200);
+            // return response()->json(['success' => true, 'data' => $data_query, 'message' => 'this is your URL and data'], 200);
         } catch (Exception $e) {
             Log::error('NowPayments request failed', ['exception' => $e->getMessage()]);
             return response()->json(['success' => false, 'message' => 'Payment gateway request failed'], 500);

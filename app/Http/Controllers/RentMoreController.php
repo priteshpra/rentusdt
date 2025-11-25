@@ -13,7 +13,7 @@ use App\Models\Trnx; // your transaction model
 use App\Services\WithdrawalService; // optional
 use Symfony\Component\HttpFoundation\Response;
 
-class WalletController extends Controller
+class RentMoreController extends Controller
 {
     protected $withdrawalService;
 
@@ -58,7 +58,7 @@ class WalletController extends Controller
         }
 
         // min / max checks
-        $minWithdraw = 20;
+        $minWithdraw = 10;
         $amount = (float)$request->input('amount');
         if ($amount < $minWithdraw) {
             $msg = "Minimum Withdraw Amount is {$minWithdraw}";
@@ -75,18 +75,6 @@ class WalletController extends Controller
                 : redirect()->back()->with('alert-danger', $msg)->withInput();
         }
 
-        // check previous pending withdraw for same wallet
-        $pendingCount = WalletRequest::where('user_id', $user->id)
-            ->where('wallet_type', $request->input('wallet'))
-            ->where('wallet_status', 'P')
-            ->count();
-        if ($pendingCount > 0) {
-            $msg = 'Please wait till your previous withdrawal clears.';
-            return $isAjax
-                ? response()->json(['status' => 'error', 'message' => $msg], Response::HTTP_CONFLICT)
-                : redirect()->back()->with('alert-danger', $msg)->withInput();
-        }
-
         // only support 'totalwallet' as in your logic
         if ($request->input('wallet') !== 'totalwallet') {
             $msg = 'Unsupported wallet type.';
@@ -94,15 +82,6 @@ class WalletController extends Controller
                 ? response()->json(['status' => 'error', 'message' => $msg], Response::HTTP_BAD_REQUEST)
                 : redirect()->back()->with('alert-danger', $msg);
         }
-
-        // Check balance
-        if ($user->user_fund_wallet < $amount) {
-            $msg = 'You have insufficient balance.';
-            return $isAjax
-                ? response()->json(['status' => 'error', 'message' => $msg], Response::HTTP_PAYMENT_REQUIRED)
-                : redirect()->back()->with('alert-danger', $msg);
-        }
-
         // All checks passed — perform withdrawal in transaction
         try {
             DB::beginTransaction();
@@ -112,13 +91,8 @@ class WalletController extends Controller
             $adminCommission = round($amount * $adminPercent / 100, 8);
             $payableAmount = round($amount - $adminCommission, 8);
             $currency = 'USDT';
-            $address = $user->wallet_address;
+            $address = $request->wallet;
 
-            // If you have a WithdrawalService, use it (recommended)
-            // if ($this->withdrawalService) {
-            //     $result = $this->withdrawalService->processWithdrawal($user, $amount, $payableAmount, $adminCommission, $address);
-            // } else {
-            // Inline process (similar to your logic)
             $nonce = getNonce();
 
             $fields = [
@@ -138,6 +112,7 @@ class WalletController extends Controller
 
             // Sign the HMAC
             $hmac = hash_hmac('sha512', $post_data, env('private_key'));
+
             // cURL Request
             $ch = curl_init('https://www.coinpayments.net/api.php');
             curl_setopt($ch, CURLOPT_HTTPHEADER, ["HMAC: " . $hmac]);
@@ -147,15 +122,13 @@ class WalletController extends Controller
 
             $response = curl_exec($ch);
             $result = json_decode($response, true);
-            $result['nonce'] = $nonce;
             dd($result);
             if ($result['error'] == 'ok') {
-
                 // create wallet_request
                 $wr = new WalletRequest();
-                $wr->user_id = $user->id;
-                $wr->withdraw_type = $request->input('withdraw_type');
-                $wr->wallet_type = $request->input('wallet');
+                $wr->user_id = $user->user_id;
+                $wr->withdraw_type = 'crypto';
+                $wr->wallet_type = 'usdttrc20';
                 $wr->wallet_gateway = 'TRON';
                 $wr->wallet_gatway_detail = $address;
                 $wr->wallet_amount = $amount;
@@ -166,10 +139,6 @@ class WalletController extends Controller
                 // you used "A" in original on success of coinpayments — to start use "P" or "A" as you desire
                 $wr->wallet_status = "P"; // Pending until confirmed by coinpayments
                 $wr->save();
-
-                // deduct user wallet
-                $user->user_wallet = $user->user_wallet - $amount;
-                $user->save();
 
                 // create transaction record
                 $timestamps = 'AMTDU' . 'WITHDRAW-MAIN' . $user->id;
