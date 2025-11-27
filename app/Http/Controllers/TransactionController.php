@@ -18,7 +18,7 @@ class TransactionController extends Controller
         // today's registered users
         $user = auth()->user();
         $perPage = (int) $request->input('per_page', 15);
-        $transactions = Deposite::with('get_user')->where('user_id', $user['id'])->paginate($perPage);
+        $transactions = Deposite::with('get_user')->where('user_id', $user['id'])->orderBy('id', 'desc')->paginate($perPage);
         // dd($transactions);
         return view('rentus.payment', compact(
             'transactions',

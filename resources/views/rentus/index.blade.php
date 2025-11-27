@@ -19,7 +19,7 @@
     </div>
 
     {{-- ===========================
-        BALANCE & ACTION SECTION
+    BALANCE & ACTION SECTION
     ============================ --}}
     <div class="row justify-content-center">
         <div class="col-lg-7">
@@ -39,7 +39,8 @@
                                     Rent Your USDT Now
                                 </button>
                             </form>
-                            <img src="{{ asset('rentus/assets/images/extra/fund.png') }}" alt="Fund" class="mb-n4 float-end" height="107">
+                            <img src="{{ asset('rentus/assets/images/extra/fund.png') }}" alt="Fund"
+                                class="mb-n4 float-end" height="107">
                         </div>
                     </div>
                 </div>
@@ -51,14 +52,18 @@
                                 <span class="fs-16 fw-semibold">Balance</span>
                             </div>
 
-                            <h4 class="my-2 fs-24 fw-semibold">$ {{number_format($totalUSDT,2) }} <small class="font-14">USDT</small></h4>
+                            <h4 class="my-2 fs-24 fw-semibold">$ {{number_format($totalUSDT,2) }} <small
+                                    class="font-14">USDT</small></h4>
                             <p class="mb-3 text-muted fw-semibold">
-                                <span class="text-success"><i class="fas fa-arrow-up me-1"></i>UP TO 0.2% Per Day</span> Outstanding balance boost
+                                <span class="text-success"><i class="fas fa-arrow-up me-1"></i>UP TO 0.2% Per Day</span>
+                                Outstanding balance boost
                             </p>
 
                             <!-- Rent More Button -->
-                            <button type="button" class="btn btn-soft-primary" data-bs-toggle="modal" data-bs-target="#rentModal">Rent More</button>
-                            <button type="button" class="btn btn-soft-danger" data-bs-toggle="modal" data-bs-target="#withdrawModal">Withdraw</button>
+                            <button type="button" class="btn btn-soft-primary" data-bs-toggle="modal"
+                                data-bs-target="#rentModal">Rent More</button>
+                            <button type="button" class="btn btn-soft-danger" data-bs-toggle="modal"
+                                data-bs-target="#withdrawModal">Withdraw</button>
                         </div>
                     </div>
                 </div>
@@ -66,7 +71,7 @@
         </div>
 
         {{-- ===========================
-            RIGHT SUMMARY CARDS
+        RIGHT SUMMARY CARDS
         ============================ --}}
         <div class="col-lg-5">
             <div class="row justify-content-center">
@@ -76,10 +81,11 @@
                             <div class="row">
                                 <div class="col-9">
                                     <p class="text-muted text-uppercase mb-0 fw-normal fs-13">Total Invested</p>
-                                    <h4 class="mt-1 mb-0 fw-medium">$1000.00</h4>
+                                    <h4 class="mt-1 mb-0 fw-medium">$ {{ number_format($totalInvest,2) }}</h4>
                                 </div>
                                 <div class="col-3 text-center">
-                                    <div class="thumb-md border-dashed border-primary rounded mx-auto d-flex justify-content-center align-items-center">
+                                    <div
+                                        class="thumb-md border-dashed border-primary rounded mx-auto d-flex justify-content-center align-items-center">
                                         <i class="iconoir-dollar-circle fs-22 text-primary"></i>
                                     </div>
                                 </div>
@@ -97,7 +103,8 @@
                                     <h4 class="mt-1 mb-0 fw-medium">$5.06</h4>
                                 </div>
                                 <div class="col-3 text-center">
-                                    <div class="thumb-md border-dashed border-info rounded mx-auto d-flex justify-content-center align-items-center">
+                                    <div
+                                        class="thumb-md border-dashed border-info rounded mx-auto d-flex justify-content-center align-items-center">
                                         <i class="iconoir-cart fs-22 text-info"></i>
                                     </div>
                                 </div>
@@ -115,7 +122,8 @@
                                     <h4 class="mt-1 mb-0 fw-medium">$1.20</h4>
                                 </div>
                                 <div class="col-3 text-center">
-                                    <div class="thumb-md border-dashed border-warning rounded mx-auto d-flex justify-content-center align-items-center">
+                                    <div
+                                        class="thumb-md border-dashed border-warning rounded mx-auto d-flex justify-content-center align-items-center">
                                         <i class="iconoir-percentage-circle fs-22 text-warning"></i>
                                     </div>
                                 </div>
@@ -129,7 +137,7 @@
     </div>
 
     {{-- ===========================
-        TRANSACTION HISTORY
+    TRANSACTION HISTORY
     ============================ --}}
     <div class="row justify-content-center mt-4">
         <div class="col-md-12">
@@ -165,7 +173,8 @@
                                 @foreach($transactions as $tran)
                                 <tr>
                                     <td><a href="#" class="fs-12 text-primary">{{ $tran->txn_id }}</a></td>
-                                    <td>{{ $tran->apply_date->format('d M Y') }} <span>{{ $tran->apply_date->format('h:i A') }}</span></td>
+                                    <td>{{ $tran->apply_date->format('d M Y') }} <span>{{ $tran->apply_date->format('h:i
+                                            A') }}</span></td>
                                     <td>{{ number_format($tran->amount1, 2) }} USDT</td>
                                     <td>
                                         <!-- <span class="badge bg-success-subtle text-success fs-11 fw-medium px-2">Completed</span> -->
@@ -201,12 +210,12 @@
 </div>
 
 {{-- ===========================
-    RENT MORE MODAL
+RENT MORE MODAL
 ============================ --}}
 @include('rentus.modals.rent-modal')
 
 {{-- ===========================
-    WITHDRAW MODAL
+WITHDRAW MODAL
 ============================ --}}
 @include('rentus.modals.withdraw-modal')
 

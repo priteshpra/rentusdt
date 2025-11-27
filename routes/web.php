@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\TransactionController;
 use App\Http\Controllers\ProfileController as UserProfileController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\ReturnHistoryController;
+use App\Http\Controllers\RentMoreController;
 use App\Http\Controllers\ReturnHistoryController as UserReturnHistoryController;
 use App\Http\Controllers\TransactionController as UserTransactionController;
 use App\Http\Controllers\WalletController;
@@ -68,9 +69,8 @@ Route::middleware('auth')->group(function () {
 
 Route::post('/deposit', [DepositController::class, 'depositInsert']);
 Route::post('/webhook/nowpayments', [DepositController::class, 'nowPaymentsWebhook']);
-Route::post('/withdraw/request', [WalletController::class, 'withdrawRequest'])
-    ->name('withdraw.request')
-    ->middleware('auth');
+Route::post('/withdraw/request', [WalletController::class, 'withdrawRequest'])->name('withdraw.request')->middleware('auth');
+Route::post('/rentmore/deposit', [RentMoreController::class, 'depositInsert'])->name('rentmore.deposit')->middleware('auth');
 /**
  *
  * Users Route End

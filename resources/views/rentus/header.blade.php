@@ -126,7 +126,8 @@
                     class="d-flex justify-content-center align-items-center thumb-lg update-icon-box rounded-circle mx-auto">
                     <img src="{{ asset('rentus/assets/images/extra/gold.png') }}" alt="" height="45">
                 </div>
-                <h5 class="mt-3">Today's <span class="text-white">$2450.00</span></h5>
+                <h5 class="mt-3">Today's <span class="text-white">$ {{ number_format(getTodayDeposit(Auth::id()), 2)
+                        }}</span></h5>
                 <p class="mb-3 text-muted">Total Returns To Users</p>
                 <a href="javascript:void(0);" class="btn text-primary shadow-sm rounded-pill px-3">Rent USDT Now</a>
             </div>

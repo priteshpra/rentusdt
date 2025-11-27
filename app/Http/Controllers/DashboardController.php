@@ -15,14 +15,18 @@ class DashboardController extends Controller
      */
     public function index()
     {
+        $today = date('Y-m-d');
         $user = auth()->user();
         // today's registered users
-        $totalUSDT        = Deposite::sum('amount1');
-        $transactions = Deposite::with('get_user')->where('user_id', $user['id'])->get();
+        $totalUSDT  = $totalInvest = Deposite::where('user_id', $user['id'])->sum('amount1');
+        $transactions = Deposite::with('get_user')->where('user_id', $user['id'])->orderBy('id', 'desc')->limit(5)->get();
+        $todays = Deposite::where('user_id', $user['id'])->whereDate('apply_date', $today)->sum('amount1');
         return view('rentus.index', compact(
             'totalUSDT',
             'transactions',
+            'totalInvest',
             'user',
+            'todays'
         ));
     }
 }

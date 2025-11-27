@@ -1,5 +1,5 @@
 <!-- Rent More Modal -->
-<div class="modal fade" id="rentModal" tabindex="-1" aria-labelledby="rentModalLabel" aria-hidden="true">
+{{-- <div class="modal fade" id="rentModal" tabindex="-1" aria-labelledby="rentModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content border-0 shadow-lg rounded-4">
             <div class="modal-header bg-primary text-white rounded-top-4">
@@ -55,29 +55,104 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
+<style>
+    .amount-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-gap: 12px;
+    }
 
+    .amount-box {
+        background: #0f0f15;
+        border-radius: 12px;
+        padding: 18px 0;
+        text-align: center;
+        font-size: 18px;
+        font-weight: bold;
+        color: white;
+        border: 1px solid #222;
+        cursor: pointer;
+        transition: 0.2s;
+        box-shadow: 0 0 10px rgba(255, 215, 0, 0.15);
+    }
+
+    .amount-box:hover,
+    .amount-box.active {
+        background: #1c1c22;
+        border-color: #ffcc00;
+        box-shadow: 0 0 15px rgba(255, 215, 0, 0.25);
+    }
+
+    .amount-input {
+        padding: 14px;
+        font-size: 18px;
+        border-radius: 10px;
+    }
+</style>
+<div class="modal fade" id="rentModal" tabindex="-1" aria-labelledby="rentModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg rounded-4">
+            <div class="modal-header bg-primary text-white rounded-top-4">
+                <h5 class="modal-title" id="rentModalLabel">💰 Rent More USDT</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body p-4">
+                <h6 class="fw-bol    <!-- Amount Grid -->d mb-3 text-center">Select Deposit Amount</h6>
+                <div class="amount-grid">
+                    <div class="amount-box" onclick="setAmount(1000)">$ 1000</div>
+                    <div class="amount-box" onclick="setAmount(1500)">$ 1500</div>
+                    <div class="amount-box" onclick="setAmount(2000)">$ 2000</div>
+
+                    <div class="amount-box" onclick="setAmount(2500)">$ 2500</div>
+                    <div class="amount-box" onclick="setAmount(3000)">$ 3000</div>
+                    <div class="amount-box" onclick="setAmount(3500)">$ 3500</div>
+
+                    <div class="amount-box" onclick="setAmount(4000)">$ 4000</div>
+                    <div class="amount-box" onclick="setAmount(5000)">$ 5000</div>
+                    <div class="amount-box" onclick="setAmount(6000)">$ 6000</div>
+                </div>
+                <!-- Manual Amount Input -->
+                <div class="mt-4">
+                    <input type="number" id="rentAmount" class="form-control amount-input"
+                        placeholder="Enter custom amount">
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <!-- Process Button -->
+                <button class="btn btn-warning " id="submitProof" style="font-size: 18px;">
+                    Process Request
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 @push('scripts')
+<script>
+    function setAmount(val) {
+        document.getElementById("rentAmount").value = val;
+
+        document.querySelectorAll('.amount-box').forEach(x =>
+            x.classList.remove('active')
+        );
+
+        event.target.classList.add('active');
+    }
+</script>
 <script>
     const rentAmountInput = document.getElementById('rentAmount');
     const paymentSection = document.getElementById('paymentSection');
     const proofSection = document.getElementById('proofSection');
-    const nextStepBtn = document.getElementById('nextStep');
     const submitProofBtn = document.getElementById('submitProof');
     const txidInput = document.getElementById('txid');
     const proofFile = document.getElementById('paymentProof');
 
-    nextStepBtn.addEventListener('click', () => {
-        const amount = parseFloat(rentAmountInput.value);
-        if (isNaN(amount) || amount < 10) {
-            alert("⚠️ Please enter at least 10 USDT to rent.");
-            return;
-        }
-        paymentSection.classList.remove('d-none');
-        proofSection.classList.remove('d-none');
-        nextStepBtn.classList.add('d-none');
-        submitProofBtn.classList.remove('d-none');
-    });
+
 
     function copyAddress() {
         const address = document.getElementById('usdtAddress').textContent;
@@ -86,41 +161,36 @@
     }
 
     submitProofBtn.addEventListener('click', () => {
-        const txid = txidInput.value.trim();
-        const file = proofFile.files[0];
-        if (!txid) {
-            alert("⚠️ Please enter your Transaction ID (TXID).");
+        const amount = parseFloat(rentAmountInput.value);
+        if(isNaN(amount) || amount < 10)
+        {
+            $("#rentAmount").css("border", "2px solid red");
+            // alert("⚠️ Please enter at least 10 USDT to rent.");
             return;
         }
-        if (!file) {
-            alert("⚠️ Please upload your payment screenshot or proof.");
-            return;
-        }
-        alert("✅ Payment details submitted successfully! Our team will verify and update your rented balance.");
+        $("#rentAmount").css("border", "none");
         const modal = bootstrap.Modal.getInstance(document.getElementById('rentModal'));
-        alert(amount);
         let formData = new FormData();
         formData.append("_token", "{{ csrf_token() }}");
-        formData.append("amount", 1000);
+        formData.append("amount", amount);
         formData.append("coin", "USDT.TRC20");
-        formData.append("txid", txid);
-        formData.append("proof", file);
 
         $.ajax({
-            url: "{{ url('/deposit') }}",
+            url: "{{ url('rentmore/deposit') }}",
             method: "POST",
             data: formData,
             contentType: false,
             processData: false,
             success: function (response) {
                 alert("✅ Submitted successfully!");
+                modal.hide();
             },
             error: function (xhr) {
                 alert("❌ Something went wrong.");
                 console.log(xhr.responseText);
             }
         });
-        modal.hide();
+
   });
 </script>
 @endpush
