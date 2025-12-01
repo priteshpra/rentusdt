@@ -14,11 +14,11 @@ class WithdrawalService
         // Prepare POST fields for CoinPayments
         $fields = [
             'version'      => 1,
-            'key'          => $public_key,
+            'key'          => env('public_key'),
             'format'       => 'json',
             'cmd'          => 'create_withdrawal',
-            'amount'       => $payableamount,
-            'currency'     => $currency,
+            'amount'       => $payableAmount,
+            'currency'     => 'USDT',
             'address'      => $address,
             'auto_confirm' => 1
         ];
@@ -27,7 +27,7 @@ class WithdrawalService
         $post_data = http_build_query($fields, '', '&');
 
         // Sign the HMAC
-        $hmac = hash_hmac('sha512', $post_data, $private_key);
+        $hmac = hash_hmac('sha512', $post_data, env('private_key'));
 
         // cURL Request
         $ch = curl_init('https://www.coinpayments.net/api.php');

@@ -45,7 +45,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-6">
+                <!-- <div class="col-md-6">
                     <div class="card bg-globe-img">
                         <div class="card-body">
                             <div class="d-flex justify-content-between align-items-center">
@@ -59,11 +59,61 @@
                                 Outstanding balance boost
                             </p>
 
-                            <!-- Rent More Button -->
                             <button type="button" class="btn btn-soft-primary" data-bs-toggle="modal"
                                 data-bs-target="#rentModal">Rent More</button>
                             <button type="button" class="btn btn-soft-danger" data-bs-toggle="modal"
                                 data-bs-target="#withdrawModal">Withdraw</button>
+                        </div>
+                    </div>
+                </div> -->
+                <div class="col-md-6">
+                    <div class="card bg-globe-img">
+                        <div class="card-body">
+
+                            <!-- ====== TOP SECTION WITH REF CODE + BALANCE TITLE ====== -->
+                            <div class="d-flex justify-content-between align-items-center">
+
+
+                                <!-- Balance Title -->
+                                <span class="fs-16 fw-semibold">Balance</span>
+
+
+                                <!-- Refer Code + Copy Button -->
+                                <div class="d-flex align-items-center">
+                                    <span class="fw-semibold me-2">Refer Code:</span>
+                                    <div class="d-flex align-items-center bg-light px-2 py-1 rounded">
+                                        <span id="refCodeText" class="fw-bold text-primary me-2">
+                                            {{ $user->refer_code }}
+                                        </span>
+
+                                        <button class="btn btn-sm btn-outline-primary py-0 px-2" onclick="copyRefCode()">
+                                            <i class="fas fa-copy"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- ====== BALANCE VALUE ====== -->
+                            <h4 class="my-2 fs-24 fw-semibold">
+                                $ {{ number_format($totalUSDT, 2) }}
+                                <small class="font-14">USDT</small>
+                            </h4>
+
+                            <p class="mb-3 text-muted fw-semibold">
+                                <span class="text-success">
+                                    <i class="fas fa-arrow-up me-1"></i>UP TO 0.2% Per Day
+                                </span>
+                                Outstanding balance boost
+                            </p>
+
+                            <!-- Rent + Withdraw Buttons -->
+                            <button type="button" class="btn btn-soft-primary" data-bs-toggle="modal" data-bs-target="#rentModal">
+                                Rent More
+                            </button>
+
+                            <button type="button" class="btn btn-soft-danger" data-bs-toggle="modal" data-bs-target="#withdrawModal">
+                                Withdraw
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -208,7 +258,15 @@
         </div>
     </div>
 </div>
+<script>
+    function copyRefCode() {
+        let text = document.getElementById("refCodeText").innerText;
 
+        navigator.clipboard.writeText(text).then(() => {
+            alert("Refer code copied: " + text);
+        });
+    }
+</script>
 {{-- ===========================
 RENT MORE MODAL
 ============================ --}}
