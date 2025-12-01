@@ -50,7 +50,7 @@
                                 <div class="col-9">
                                     <p class="text-muted text-uppercase mb-0 fw-normal fs-13">Total Rented USDT
                                     </p>
-                                    <h4 class="mt-1 mb-0 fw-medium">$120,000</h4>
+                                    <h4 class="mt-1 mb-0 fw-medium">$ {{ number_format($totalRented, 2) }}</h4>
                                 </div>
                                 <div class="col-3 text-end">
                                     <div
@@ -73,7 +73,7 @@
                                 <div class="col-9">
                                     <p class="text-muted text-uppercase mb-0 fw-normal fs-13">Total Withdraw
                                         USDT</p>
-                                    <h4 class="mt-1 mb-0 fw-medium">$85,000</h4>
+                                    <h4 class="mt-1 mb-0 fw-medium">$ {{ number_format($totalWinthdrawal, 2) }}</h4>
                                 </div>
                                 <div class="col-3 text-end">
                                     <div
@@ -152,7 +152,7 @@
                                 <div class="col-9">
                                     <p class="text-muted text-uppercase mb-0 fw-normal fs-13">Today's Withdraw
                                     </p>
-                                    <h4 class="mt-1 mb-0 fw-medium">$950</h4>
+                                    <h4 class="mt-1 mb-0 fw-medium">$ {{ number_format($todaysWinthdrawal, 2) }}</h4>
                                 </div>
                                 <div class="col-3 text-end">
                                     <div
@@ -173,7 +173,7 @@
                                 <div class="col-9">
                                     <p class="text-muted text-uppercase mb-0 fw-normal fs-13">Withdraw
                                         Applications</p>
-                                    <h4 class="mt-1 mb-0 fw-medium">35 Pending</h4>
+                                    <h4 class="mt-1 mb-0 fw-medium">{{ $winthdrawalAppPending }} Pending</h4>
                                 </div>
                                 <div class="col-3 text-end">
                                     <div
@@ -186,9 +186,12 @@
                     </div>
                 </div>
 
-            </div><!--end row-->
-        </div><!--end col-->
-    </div><!--end row-->
+            </div>
+            <!--end row-->
+        </div>
+        <!--end col-->
+    </div>
+    <!--end row-->
 
 
     <div class="row justify-content-center">
@@ -216,8 +219,8 @@
                                 <tr>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <img src="assets/images/users/user-1.jpg" height="40"
-                                                class="me-3 rounded" alt="">
+                                            <img src="assets/images/users/user-1.jpg" height="40" class="me-3 rounded"
+                                                alt="">
                                             <div>
                                                 <h6 class="mb-0">John Carter</h6>
                                                 <small class="text-muted">UID: #1021</small>
@@ -238,8 +241,8 @@
                                 <tr>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <img src="assets/images/users/user-2.jpg" height="40"
-                                                class="me-3 rounded" alt="">
+                                            <img src="assets/images/users/user-2.jpg" height="40" class="me-3 rounded"
+                                                alt="">
                                             <div>
                                                 <h6 class="mb-0">Emily Stone</h6>
                                                 <small class="text-muted">UID: #1058</small>
@@ -260,8 +263,8 @@
                                 <tr>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <img src="assets/images/users/user-3.jpg" height="40"
-                                                class="me-3 rounded" alt="">
+                                            <img src="assets/images/users/user-3.jpg" height="40" class="me-3 rounded"
+                                                alt="">
                                             <div>
                                                 <h6 class="mb-0">Ryan Thomas</h6>
                                                 <small class="text-muted">UID: #1092</small>
@@ -308,8 +311,8 @@
                                 <tr>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <img src="assets/images/users/user-4.jpg" height="40"
-                                                class="me-3 rounded" alt="">
+                                            <img src="assets/images/users/user-4.jpg" height="40" class="me-3 rounded"
+                                                alt="">
                                             <div>
                                                 <h6 class="mb-0">Sophia Brown</h6>
                                                 <small class="text-muted">UID: #2025</small>
@@ -330,8 +333,8 @@
                                 <tr>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <img src="assets/images/users/user-5.jpg" height="40"
-                                                class="me-3 rounded" alt="">
+                                            <img src="assets/images/users/user-5.jpg" height="40" class="me-3 rounded"
+                                                alt="">
                                             <div>
                                                 <h6 class="mb-0">Michael Lee</h6>
                                                 <small class="text-muted">UID: #2031</small>
@@ -352,8 +355,8 @@
                                 <tr>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <img src="assets/images/users/user-6.jpg" height="40"
-                                                class="me-3 rounded" alt="">
+                                            <img src="assets/images/users/user-6.jpg" height="40" class="me-3 rounded"
+                                                alt="">
                                             <div>
                                                 <h6 class="mb-0">Ava Johnson</h6>
                                                 <small class="text-muted">UID: #2048</small>
@@ -390,7 +393,7 @@
                                 <tr>
                                     <th>User</th>
                                     <th>Email</th>
-                                    <!-- <th>Country</th> -->
+                                    <th>Country</th>
                                     <th>Joined Date</th>
                                     <th>Status</th>
                                     <th>Action</th>
@@ -401,8 +404,8 @@
                                 <tr>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <img src="{{ !empty($user) && !empty($user->avatar) ? asset('storage/'.$user->avatar) : asset('admin/assets/images/users/avatar-1.jpg') }}" height="40"
-                                                class="me-3 rounded" alt="">
+                                            <img src="{{ !empty($user) && !empty($user->avatar) ? asset('storage/'.$user->avatar) : asset('admin/assets/images/users/avatar-1.jpg') }}"
+                                                height="40" class="me-3 rounded" alt="">
                                             <div>
                                                 <h6 class="mb-0">{{ $user->name }}</h6>
                                                 <small class="text-muted">UID: #0010{{ $user->id }}</small>
@@ -410,7 +413,7 @@
                                         </div>
                                     </td>
                                     <td>{{ $user->email }}</td>
-                                    <!-- <td>USA</td> -->
+                                    <td>{{ $user->country ?? 'USA' }}</td>
                                     <td>{{ $user->created_at->format('d M Y') }}</td>
                                     <td>
                                         <!-- <span class="badge bg-success-subtle text-success">Active</span> -->
@@ -422,16 +425,17 @@
                                     </td>
                                     <td>
                                         <!-- <a href="#"><i class="las la-eye text-secondary fs-18"></i></a> -->
-                                        <a href="{{ route('admin.users.edit', $user->id) }}"><i class="las la-edit text-secondary fs-18"></i></a>
-                                        <form action="{{ route('admin.users.destroy', $user->id) }}"
-                                            method="POST"
+                                        <a href="{{ route('admin.users.edit', $user->id) }}"><i
+                                                class="las la-edit text-secondary fs-18"></i></a>
+                                        <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST"
                                             class="d-inline"
                                             onsubmit="return confirm('Are you sure you want to deactivate this user?');">
 
                                             @csrf
                                             @method('DELETE')
 
-                                            <button type="submit" class="btn p-0 border-0 bg-transparent" title="Delete">
+                                            <button type="submit" class="btn p-0 border-0 bg-transparent"
+                                                title="Delete">
                                                 <i class="las la-trash-alt text-secondary fs-18"></i>
                                             </button>
 
@@ -471,12 +475,12 @@
 </div>
 
 {{-- ===========================
-    RENT MORE MODAL
+RENT MORE MODAL
 ============================ --}}
 @include('rentus.modals.rent-modal')
 
 {{-- ===========================
-    WITHDRAW MODAL
+WITHDRAW MODAL
 ============================ --}}
 @include('rentus.modals.withdraw-modal')
 

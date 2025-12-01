@@ -316,14 +316,14 @@
                 </div>
                 <div class="col-md-12">
                     <div class="flat-tabs">
-                        <ul class="menu-tab">
+                        {{-- <ul class="menu-tab">
                             <li class="active">
                                 <h6 class="fs-16">Email</h6>
                             </li>
                             <li>
                                 <h6 class="fs-16">Mobile</h6>
                             </li>
-                        </ul>
+                        </ul> --}}
 
                         <div class="content-tab">
                             <div class="content-inner">
@@ -343,7 +343,7 @@
                                                 characters)</span></label>
                                         <input type="password" name="password" class="form-control"
                                             placeholder="Please enter a password." />
-                                        <input type="password" class="form-control"
+                                        <input type="password" class="form-control" name="password_confirmation"
                                             placeholder="Please re-enter your password." />
                                     </div>
                                     <div class="form-group">
@@ -355,7 +355,7 @@
                                     <div class="form-group">
                                         <label>Country </label>
                                         <select class="form-control" name="country">
-                                            <option value="IN">India (+91)</option>
+                                            <option value="IND">India (+91)</option>
                                             <option value="USA">United State America (+82)</option>
                                             <option value="Vietnamese">Vietnamese (+84)</option>
                                             <option value="SK">South Korea (+82)</option>
@@ -383,7 +383,7 @@
                                     </div>
                                 </form>
                             </div>
-                            <div class="content-inner">
+                            {{-- <div class="content-inner">
                                 <form method="POST" action="{{ route('register') }}">
                                     @csrf
                                     <div class="form-group">
@@ -442,7 +442,7 @@
                                         <a href="{{ route('login') }}">Login</a>
                                     </div>
                                 </form>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>

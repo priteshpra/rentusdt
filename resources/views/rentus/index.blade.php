@@ -86,7 +86,8 @@
                                             {{ $user->refer_code }}
                                         </span>
 
-                                        <button class="btn btn-sm btn-outline-primary py-0 px-2" onclick="copyRefCode()">
+                                        <button class="btn btn-sm btn-outline-primary py-0 px-2"
+                                            onclick="copyRefCode()">
                                             <i class="fas fa-copy"></i>
                                         </button>
                                     </div>
@@ -107,11 +108,13 @@
                             </p>
 
                             <!-- Rent + Withdraw Buttons -->
-                            <button type="button" class="btn btn-soft-primary" data-bs-toggle="modal" data-bs-target="#rentModal">
+                            <button type="button" class="btn btn-soft-primary" data-bs-toggle="modal"
+                                data-bs-target="#rentModal">
                                 Rent More
                             </button>
 
-                            <button type="button" class="btn btn-soft-danger" data-bs-toggle="modal" data-bs-target="#withdrawModal">
+                            <button type="button" class="btn btn-soft-danger" data-bs-toggle="modal"
+                                data-bs-target="#withdrawModal">
                                 Withdraw
                             </button>
                         </div>
@@ -150,7 +153,7 @@
                             <div class="row">
                                 <div class="col-9">
                                     <p class="text-muted text-uppercase mb-0 fw-normal fs-13">Total Returns</p>
-                                    <h4 class="mt-1 mb-0 fw-medium">$5.06</h4>
+                                    <h4 class="mt-1 mb-0 fw-medium">$ {{ number_format($totalReturn, 2) }}</h4>
                                 </div>
                                 <div class="col-3 text-center">
                                     <div
@@ -169,7 +172,7 @@
                             <div class="row">
                                 <div class="col-9">
                                     <p class="text-muted text-uppercase mb-0 fw-normal fs-13">Today's Return</p>
-                                    <h4 class="mt-1 mb-0 fw-medium">$1.20</h4>
+                                    <h4 class="mt-1 mb-0 fw-medium">$ {{ number_format($todaysReturn, 2) }}</h4>
                                 </div>
                                 <div class="col-3 text-center">
                                     <div

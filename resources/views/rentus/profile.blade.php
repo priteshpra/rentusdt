@@ -35,8 +35,9 @@
             <div class="card-body mt-n6">
                 <div class="d-flex align-items-center mb-3">
                     <div class="position-relative">
-                        <img src="{{ $user->avatar ? asset('storage/'.$user->avatar) : asset('rentus/assets/images/users/avatar-5.jpg') }}" alt="User Avatar"
-                            class="rounded-circle img-fluid" style="height:80px; width:80px; object-fit:cover;">
+                        <img src="{{ $user->avatar ? asset('storage/'.$user->avatar) : asset('rentus/assets/images/users/avatar-5.jpg') }}"
+                            alt="User Avatar" class="rounded-circle img-fluid"
+                            style="height:80px; width:80px; object-fit:cover;">
                     </div>
                     <div class="flex-grow-1 text-truncate ms-3 align-self-end">
                         <h5 class="m-0 fs-3 fw-bold">{{ $user->name }}</h5>
@@ -46,18 +47,20 @@
                 <div class="mt-3">
                     <div class="text-body mb-2 d-flex align-items-center">
                         <i class="iconoir-language fs-20 me-1 text-muted"></i>
-                        <span class="fw-semibold">Total Rented :</span> $1000
+                        <span class="fw-semibold">Total Rented :</span> $ {{ number_format($user->total_usdt, 2) }}
                     </div>
                     <div class="text-muted mb-2 d-flex align-items-center">
                         <i class="iconoir-mail-out fs-20 me-1"></i>
-                        <span class="fw-semibold">Total Return :</span> $25
+                        <span class="fw-semibold">Total Return :</span> $ {{ number_format($user->totalReturn, 2) }}
                     </div>
                     <div class="text-body mb-3 d-flex align-items-center">
                         <i class="iconoir-phone fs-20 me-1 text-muted"></i>
-                        <span class="fw-semibold">Today Return :</span> $2.5
+                        <span class="fw-semibold">Today Return :</span> $ {{ number_format($user->todaysReturn, 2) }}
                     </div>
-                    <button type="button" class="btn btn-primary d-inline-block" data-bs-toggle="modal" data-bs-target="#rentModal">Rent More USDT</button>
-                    <button type="button" class="btn btn-light d-inline-block" data-bs-toggle="modal" data-bs-target="#withdrawModal">Withdraw</button>
+                    <button type="button" class="btn btn-primary d-inline-block" data-bs-toggle="modal"
+                        data-bs-target="#rentModal">Rent More USDT</button>
+                    <button type="button" class="btn btn-light d-inline-block" data-bs-toggle="modal"
+                        data-bs-target="#withdrawModal">Withdraw</button>
                 </div>
             </div>
         </div>
@@ -84,14 +87,16 @@
                     <li class="mt-2">
                         <i class="las la-id-badge me-2 text-secondary fs-22 align-middle"></i>
                         <b>Profile</b> :
-                        <img src="{{ $user->avatar ? asset('storage/'.$user->avatar) : asset('rentus/assets/images/users/avatar-1.jpg') }}" alt="profile"
-                            class="rounded-circle ms-2" style="height:48px; width:48px; object-fit:cover;">
+                        <img src="{{ $user->avatar ? asset('storage/'.$user->avatar) : asset('rentus/assets/images/users/avatar-1.jpg') }}"
+                            alt="profile" class="rounded-circle ms-2"
+                            style="height:48px; width:48px; object-fit:cover;">
                     </li>
 
                     <li class="mt-2">
                         <i class="las la-phone me-2 text-secondary fs-22 align-middle"></i>
                         <b>Phone</b> :
-                        <a href="tel:+912345678910" class="text-decoration-none" id="userPhone">+91 {{ $user->contact }}</a>
+                        <a href="tel:+912345678910" class="text-decoration-none" id="userPhone">+91 {{ $user->contact
+                            }}</a>
                     </li>
 
                     <li class="mt-2">
@@ -138,7 +143,8 @@
                         <div class="col-lg-9 col-xl-8">
                             <div class="input-group">
                                 <span class="input-group-text"><i class="las la-at"></i></span>
-                                <input type="email" name="email" class="form-control" value="{{ $user->email }}" readonly>
+                                <input type="email" name="email" class="form-control" value="{{ $user->email }}"
+                                    readonly>
                             </div>
                         </div>
                     </div>
@@ -148,7 +154,8 @@
                         <div class="col-lg-9 col-xl-8">
                             <div class="input-group">
                                 <span class="input-group-text"><i class="las la-phone"></i></span>
-                                <input type="text" name="contact" class="form-control" value="{{ $user->contact }}" readonly>
+                                <input type="text" name="contact" class="form-control" value="{{ $user->contact }}"
+                                    readonly>
                             </div>
                         </div>
                     </div>
@@ -174,7 +181,8 @@
                     <div class="form-group mb-3 row">
                         <label class="col-xl-3 col-lg-3 text-end form-label align-self-center">Current Password</label>
                         <div class="col-lg-9 col-xl-8">
-                            <input class="form-control" name="current_password" type="password" placeholder="Current Password">
+                            <input class="form-control" name="current_password" type="password"
+                                placeholder="Current Password">
                             <!-- <a href="#" class="text-primary font-12">Forgot password?</a> -->
                         </div>
                     </div>
@@ -189,7 +197,8 @@
                     <div class="form-group mb-3 row">
                         <label class="col-xl-3 col-lg-3 text-end form-label align-self-center">Confirm Password</label>
                         <div class="col-lg-9 col-xl-8">
-                            <input class="form-control" type="password" name="confirm_password" placeholder="Re-enter Password">
+                            <input class="form-control" type="password" name="confirm_password"
+                                placeholder="Re-enter Password">
                         </div>
                     </div>
 
@@ -226,12 +235,12 @@
 </div>
 
 {{-- ===========================
-    RENT MORE MODAL
+RENT MORE MODAL
 ============================ --}}
 @include('rentus.modals.rent-modal')
 
 {{-- ===========================
-    WITHDRAW MODAL
+WITHDRAW MODAL
 ============================ --}}
 @include('rentus.modals.withdraw-modal')
 @endsection

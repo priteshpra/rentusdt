@@ -14,8 +14,10 @@
                     </div>
                     <div class="col-auto">
                         <div class="dropdown">
-                            <a href="#" class="btn bt btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="icofont-calendar fs-5 me-1"></i> <span class="selected-filter-text">This Month</span> <i class="las la-angle-down ms-1"></i>
+                            <a href="#" class="btn bt btn-light dropdown-toggle" data-bs-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                <i class="icofont-calendar fs-5 me-1"></i> <span class="selected-filter-text">This
+                                    Month</span> <i class="las la-angle-down ms-1"></i>
                             </a>
                             <div class="dropdown-menu dropdown-menu-end">
                                 <a class="dropdown-item" href="today">Today</a>
@@ -46,15 +48,17 @@
                             <tr>
                                 <td>
                                     <div class="d-flex align-items-center">
-                                        <img src="{{ !empty($tran->get_user) && !empty($tran->get_user->avatar) ? asset('storage/'.$tran->get_user->avatar) : asset('admin/assets/images/users/avatar-1.jpg') }}" height="40" class="me-2 rounded" alt="">
+                                        <img src="{{ !empty($tran->get_user) && !empty($tran->get_user->avatar) ? asset('storage/'.$tran->get_user->avatar) : asset('admin/assets/images/users/avatar-1.jpg') }}"
+                                            height="40" class="me-2 rounded" alt="">
                                         <div class="flex-grow-1">
                                             <h6 class="m-0">{{ $tran->get_user->name }}</h6>
-                                            <p class="fs-12 text-muted mb-0">USA</p>
+                                            <p class="fs-12 text-muted mb-0">{{ $tran->get_user->country ?? 'USA' }}</p>
                                         </div>
                                     </div>
                                 </td>
                                 <td><a href="#" class="fs-12 text-primary">{{ $tran->txn_id }}</a></td>
-                                <td>{{ $tran->apply_date->format('d M Y') }} <span>{{ $tran->apply_date->format('h:i A') }}</span></td>
+                                <td>{{ $tran->apply_date->format('d M Y') }} <span>{{ $tran->apply_date->format('h:i A')
+                                        }}</span></td>
                                 <td>{{ number_format($tran->amount1, 2) }} USDT</td>
                                 <td>
                                     <!-- <span class="badge bg-success-subtle text-success fs-11 fw-medium px-2">Completed</span> -->
@@ -67,7 +71,8 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <a href="admin/assets/docs/proof1.pdf" target="_blank" class="btn btn-outline-primary btn-sm">
+                                    <a href="admin/assets/docs/proof1.pdf" target="_blank"
+                                        class="btn btn-outline-primary btn-sm">
                                         <i class="fas fa-eye me-1"></i> View
                                     </a>
                                 </td>

@@ -2,10 +2,11 @@
 <tr>
     <td>
         <div class="d-flex align-items-center">
-            <img src="{{ !empty($retrn->get_user) && !empty($retrn->get_user->avatar) ? asset('storage/'.$retrn->get_user->avatar) : asset('rentus/assets/images/users/avatar-1.jpg') }}" height="40" class="me-2 rounded" alt="">
+            <img src="{{ !empty($retrn->get_user) && !empty($retrn->get_user->avatar) ? asset('storage/'.$retrn->get_user->avatar) : asset('rentus/assets/images/users/avatar-1.jpg') }}"
+                height="40" class="me-2 rounded" alt="">
             <div class="flex-grow-1 text-truncate">
                 <h6 class="m-0">{{ $retrn->get_user->name }}</h6>
-                <p class="fs-12 text-muted mb-0">USA</p>
+                <p class="fs-12 text-muted mb-0">{{ $retrn->get_user->country ?? 'USA' }}</p>
             </div>
         </div>
     </td>

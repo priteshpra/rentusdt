@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UpdateProfileRequest;
+use App\Models\ReturnHistory;
 use App\Services\UserService; // optional
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -21,21 +22,24 @@ class ProfileController extends Controller
     // Show profile (read-only)
     public function show()
     {
-        $user = Auth::user();
-        return view('rentus.profile', compact('user'));
+        $today = date('Y-m-d');
+        $user = auth()->user();
+        $totalReturn = ReturnHistory::where('user_id', $user['id'])->sum('monthly_return');
+        $todaysReturn = ReturnHistory::where('user_id', $user['id'])->whereDate('processed_at', $today)->sum('daily_return');
+        return view('rentus.profile', compact('user', 'totalReturn', 'todaysReturn'));
     }
 
     // Edit profile (form)
     public function edit()
     {
-        $user = Auth::user();
+        $user = auth()->user();
         return view('rentus.profile.edit', compact('user'));
     }
 
     // Update profile
     public function update(UpdateProfileRequest $request)
     {
-        $user = Auth::user();
+        $user = auth()->user();
 
         $data = $request->only(['name', 'email', 'contact', 'wallet_address']);
 
